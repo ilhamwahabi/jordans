@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { Job } from "../../interfaces";
+import { ReactComponent as LeftArrow } from "../../leftArrow.svg";
 
 interface IProps {
   jobs: Job[];
@@ -21,6 +22,7 @@ const JobsDetail: React.FC<IProps> = ({ jobs }) => {
   return (
     <Container>
       <Link to="/jobs" className="allJobs">
+        <LeftArrow className="arrow" />
         All Jobs
       </Link>
       <h1>{job.title}</h1>
@@ -44,7 +46,9 @@ const Container = styled.div`
   padding: 2rem;
 
   .allJobs {
-    display: inline-block;
+    display: flex;
+    width: fit-content;
+    align-items: center;
     text-decoration: none;
     border: none;
     background: #0b3954;
@@ -52,6 +56,12 @@ const Container = styled.div`
     padding: 0.5rem 0.75rem;
     margin-bottom: 1rem;
     border-radius: 0.25rem;
+
+    .arrow {
+      width: 14px;
+      fill: white;
+      margin-right: 0.5rem;
+    }
   }
 
   h1 {
