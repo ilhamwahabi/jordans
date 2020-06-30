@@ -63,6 +63,7 @@ const LoginInput = styled.input`
   background-color: transparent;
   border: none;
   border-bottom: 1px solid #0b3954;
+  padding-bottom: 0.25rem;
   outline: none;
 `;
 
