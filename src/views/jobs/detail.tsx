@@ -3,7 +3,7 @@ import { useParams, Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import { IJob } from "../../interfaces";
-import { ReactComponent as LeftArrow } from "../../leftArrow.svg";
+import { ReactComponent as LeftArrow } from "../../assets/leftArrow.svg";
 import { getJob } from "../../service";
 import { JobDetailSkeletonView } from "../../components/SkeletonView";
 
@@ -83,7 +83,7 @@ const Container = styled.div`
     background: #0b3954;
     color: #f7f9f9;
     padding: 0.5rem 0.75rem;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
     border-radius: 0.25rem;
 
     .arrow {
