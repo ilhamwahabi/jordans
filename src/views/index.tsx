@@ -6,10 +6,11 @@ const DUMMY_USERNAME = "admin";
 const DUMMY_PASSWORD = "password";
 
 interface IProps {
+  authenticated: boolean;
   setAuthenticated: (authenticated: boolean) => void;
 }
 
-const Home: React.FC<IProps> = ({ setAuthenticated }) => {
+const Home: React.FC<IProps> = ({ authenticated, setAuthenticated }) => {
   const history = useHistory();
 
   const actionLogin = (event: React.FormEvent<HTMLFormElement>) => {
@@ -20,9 +21,11 @@ const Home: React.FC<IProps> = ({ setAuthenticated }) => {
     if (password.value !== DUMMY_PASSWORD) return;
 
     setAuthenticated(true);
+    localStorage.setItem("gh-jobs-auth", JSON.stringify(true));
     history.push("/jobs");
   };
 
+  if (authenticated) history.push("/jobs");
   return (
     <Container>
       <LoginForm onSubmit={actionLogin}>

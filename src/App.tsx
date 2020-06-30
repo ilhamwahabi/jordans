@@ -9,13 +9,19 @@ import { Job } from "./interfaces";
 
 function App() {
   const [jobs, setJobs] = useState<Job[]>([]);
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(
+    (JSON.parse(localStorage.getItem("gh-jobs-auth") as string) as boolean) ||
+      false
+  );
 
   return (
     <Router>
       <Switch>
         <Route path="/" exact>
-          <Home setAuthenticated={setAuthenticated} />
+          <Home
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+          />
         </Route>
         <Route path="/jobs" exact>
           <Jobs authenticated={authenticated} jobs={jobs} setJobs={setJobs} />

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams, Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 import { Job } from "../../interfaces";
 import { ReactComponent as LeftArrow } from "../../leftArrow.svg";
@@ -16,10 +17,19 @@ const JobsDetail: React.FC<IProps> = ({ jobs, authenticated }) => {
   const [job, setJob] = useState<Job>();
   const [openApply, setOpenApply] = useState(false);
 
+  const getJob = useCallback(async () => {
+    const { data } = await axios.get(
+      `https://jobbery-api.iwgx.now.sh/jobs/${id}`
+    );
+    setJob(data);
+  }, [setJob, id]);
+
   useEffect(() => {
     if (!authenticated) return;
-    setJob(jobs.find((item) => item.id === id));
-  }, [id, jobs, authenticated]);
+
+    if (jobs.length === 0) getJob();
+    else setJob(jobs.find((item) => item.id === id));
+  }, [id, jobs, authenticated, getJob]);
 
   if (!authenticated) history.push("/");
   if (!job) return null;
