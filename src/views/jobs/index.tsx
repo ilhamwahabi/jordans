@@ -50,7 +50,7 @@ const Jobs: React.FC<IProps> = ({ jobs, setJobs, authenticated }) => {
   return (
     <Container>
       <header>
-        <h1>Github Jobs</h1>
+        <h1>Jordans</h1>
         <SearchForm onSubmit={actionSubmitSearch}>
           <div className="inputContainer">
             <input
