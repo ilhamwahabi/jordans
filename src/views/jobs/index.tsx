@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 
 import { Job } from "../../interfaces";
@@ -8,6 +8,7 @@ import { Job } from "../../interfaces";
 interface IProps {
   jobs: Job[];
   setJobs: (jobs: Job[]) => void;
+  authenticated: boolean;
 }
 
 const defaultFilter = {
@@ -16,7 +17,8 @@ const defaultFilter = {
   full_time: false,
 };
 
-const Jobs: React.FC<IProps> = ({ jobs, setJobs }) => {
+const Jobs: React.FC<IProps> = ({ jobs, setJobs, authenticated }) => {
+  const history = useHistory();
   const [filter, setFilter] = useState(defaultFilter);
 
   const getAllJobs = useCallback(
@@ -30,14 +32,16 @@ const Jobs: React.FC<IProps> = ({ jobs, setJobs }) => {
   );
 
   useEffect(() => {
+    if (!authenticated) return;
     getAllJobs(defaultFilter);
-  }, [getAllJobs]);
+  }, [getAllJobs, authenticated]);
 
   const actionSubmitSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     getAllJobs(filter);
   };
 
+  if (!authenticated) history.push("/");
   return (
     <Container>
       <header>

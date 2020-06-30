@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import { Job } from "../../interfaces";
@@ -7,17 +7,21 @@ import { ReactComponent as LeftArrow } from "../../leftArrow.svg";
 
 interface IProps {
   jobs: Job[];
+  authenticated: boolean;
 }
 
-const JobsDetail: React.FC<IProps> = ({ jobs }) => {
+const JobsDetail: React.FC<IProps> = ({ jobs, authenticated }) => {
   const { id } = useParams();
+  const history = useHistory();
   const [job, setJob] = useState<Job>();
   const [openApply, setOpenApply] = useState(false);
 
   useEffect(() => {
+    if (!authenticated) return;
     setJob(jobs.find((item) => item.id === id));
-  }, [id, jobs]);
+  }, [id, jobs, authenticated]);
 
+  if (!authenticated) history.push("/");
   if (!job) return null;
   return (
     <Container>

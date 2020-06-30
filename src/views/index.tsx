@@ -1,11 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { RouteProps, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const DUMMY_USERNAME = "admin";
 const DUMMY_PASSWORD = "password";
 
-const Home: React.FC<RouteProps> = (props) => {
+interface IProps {
+  setAuthenticated: (authenticated: boolean) => void;
+}
+
+const Home: React.FC<IProps> = ({ setAuthenticated }) => {
   const history = useHistory();
 
   const actionLogin = (event: React.FormEvent<HTMLFormElement>) => {
@@ -15,6 +19,7 @@ const Home: React.FC<RouteProps> = (props) => {
     if (username.value !== DUMMY_USERNAME) return;
     if (password.value !== DUMMY_PASSWORD) return;
 
+    setAuthenticated(true);
     history.push("/jobs");
   };
 

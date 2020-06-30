@@ -9,18 +9,19 @@ import { Job } from "./interfaces";
 
 function App() {
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [authenticated, setAuthenticated] = useState(false);
 
   return (
     <Router>
       <Switch>
         <Route path="/" exact>
-          <Home />
+          <Home setAuthenticated={setAuthenticated} />
         </Route>
         <Route path="/jobs" exact>
-          <Jobs jobs={jobs} setJobs={setJobs} />
+          <Jobs authenticated={authenticated} jobs={jobs} setJobs={setJobs} />
         </Route>
         <Route path="/jobs/:id" exact>
-          <JobsDetail jobs={jobs} />
+          <JobsDetail authenticated={authenticated} jobs={jobs} />
         </Route>
       </Switch>
     </Router>
