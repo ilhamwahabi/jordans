@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 
 import Home from "./views";
 import Jobs from "./views/jobs";
@@ -27,6 +32,9 @@ function App() {
         </Route>
         <Route path="/jobs/:id" exact>
           <JobsDetail authenticated={authenticated} jobs={jobs} />
+        </Route>
+        <Route path="*">
+          <Redirect to="/" />
         </Route>
       </Switch>
     </Router>
