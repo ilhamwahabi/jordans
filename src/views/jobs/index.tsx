@@ -13,7 +13,7 @@ interface IProps {
 const defaultFilter = {
   description: "",
   location: "",
-  fulltime: false,
+  full_time: false,
 };
 
 const Jobs: React.FC<IProps> = ({ jobs, setJobs }) => {
@@ -57,9 +57,11 @@ const Jobs: React.FC<IProps> = ({ jobs, setJobs }) => {
             }
           />
           <ToggleButton
-            selected={filter.fulltime}
+            selected={filter.full_time}
             type="button"
-            onClick={() => setFilter({ ...filter, fulltime: !filter.fulltime })}
+            onClick={() =>
+              setFilter({ ...filter, full_time: !filter.full_time })
+            }
           >
             Full Time
           </ToggleButton>
