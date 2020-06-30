@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import { Job } from "../../interfaces";
-import { SAMPLE_JOBS } from "../../dummy";
 
 function Jobs() {
   const [jobs, setJobs] = useState<Job[]>([]);
 
   useEffect(() => {
-    setJobs(SAMPLE_JOBS);
+    const getAllJobs = async () => {
+      const { data } = await axios.get("https://jobbery-api.iwgx.now.sh/jobs");
+      setJobs(data);
+    };
+
+    getAllJobs();
   }, []);
 
   const actionSubmitSearch = (event: React.FormEvent<HTMLFormElement>) => {
@@ -38,7 +43,10 @@ function Jobs() {
               {job.title} <span>{job.type}</span>
             </h3>
             <p>
-              {job.company}, {job.location}
+              <a href={job.company_url || ""} className="companyURL">
+                {job.company}
+              </a>{" "}
+              - {job.location}
             </p>
             <Link className="detail" key={job.id} to={`/jobs/${job.id}`}>
               DETAIL
@@ -100,11 +108,19 @@ const JobItem = styled.div`
       padding: 0.25rem 0.375rem;
       border-radius: 0.25rem;
       background-color: #129490;
+      white-space: nowrap;
     }
   }
 
   p {
     margin: 1rem 0;
+  }
+
+  .companyURL {
+    text-decoration: none;
+    color: inherit;
+    padding-bottom: 0.125rem;
+    border-bottom: 1px solid black;
   }
 
   .detail {
