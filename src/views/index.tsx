@@ -44,15 +44,16 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #0b3954;
+  background-color: #a5abaf;
 
   h1 {
     margin: 0 0 2rem;
-    color: #0b3954;
+    color: #f7f9f9;
     padding-bottom: 0.5rem;
     width: 100%;
     text-align: center;
-    border-bottom: 5px solid #0b3954;
+    border-bottom: 2.5px solid #f7f9f9;
+    font-size: 2.5rem;
   }
 `;
 
@@ -61,28 +62,36 @@ const LoginForm = styled.form`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #f7f9f9;
+  background-color: #0b3954;
   padding: 1.5rem;
   border-radius: 0.25rem;
+  box-shadow: 5px 5px 15px black;
 `;
 
 const LoginInput = styled.input`
   margin: 1rem 0;
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid #0b3954;
+  border-bottom: 1px solid #f7f9f9;
   padding-bottom: 0.25rem;
   outline: none;
+  color: #f7f9f9;
+  font-size: 1.125rem;
+
+  &::placeholder {
+    color: #f7f9f9;
+  }
 `;
 
 const LoginButton = styled.button`
   margin-top: 1rem;
   border: none;
-  background-color: #0b3954;
-  color: #f7f9f9;
+  background-color: #f7f9f9;
+  color: #0b3954;
   padding: 0.75rem 1.25rem;
   border-radius: 0.25rem;
   width: 100%;
+  font-size: 1rem;
 `;
 
 export default Home;
