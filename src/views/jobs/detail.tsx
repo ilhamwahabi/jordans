@@ -39,20 +39,27 @@ const JobsDetail: React.FC<IProps> = ({ jobs, authenticated }) => {
       </Link>
       {job ? (
         <>
-          <h1>{job.title}</h1>
-          <span>{job.type}</span>
-          <p>
+          <h1 className="title">{job.title}</h1>
+          <span className="type">{job.type}</span>
+          <p className="company">
             <a className="companyURL" href={job.company_url || ""}>
               {job.company}
-            </a>{" "}
-            - {job.location}
+            </a>
+            {" - "}
+            {job.location}
           </p>
-          <p dangerouslySetInnerHTML={{ __html: job.description }} />
+          <p
+            className="description"
+            dangerouslySetInnerHTML={{ __html: job.description }}
+          />
           <ApplyButton onClick={() => setOpenApply(!openApply)}>
             APPLY
           </ApplyButton>
           {openApply && (
-            <p dangerouslySetInnerHTML={{ __html: job.how_to_apply }} />
+            <p
+              className="apply"
+              dangerouslySetInnerHTML={{ __html: job.how_to_apply }}
+            />
           )}
         </>
       ) : (
@@ -86,11 +93,11 @@ const Container = styled.div`
     }
   }
 
-  h1 {
+  .title {
     margin-top: 0;
   }
 
-  span {
+  .type {
     font-size: 1rem;
     color: #f7f9f9;
     padding: 0.25rem 0.5rem;

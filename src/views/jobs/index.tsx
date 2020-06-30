@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
-import ContentLoader from "react-content-loader";
 
 import { IJob } from "../../interfaces";
 import { getJobs } from "../../service";
@@ -53,7 +52,7 @@ const Jobs: React.FC<IProps> = ({ jobs, setJobs, authenticated }) => {
       <header>
         <h1>Github Jobs</h1>
         <SearchForm onSubmit={actionSubmitSearch}>
-          <div>
+          <div className="inputContainer">
             <input
               type="text"
               placeholder="Description"
@@ -80,8 +79,7 @@ const Jobs: React.FC<IProps> = ({ jobs, setJobs, authenticated }) => {
               {filter.full_time ? "Full Time" : "Not Full Time"}
             </ToggleButton>
           </div>
-
-          <button className="submit">SEARCH</button>
+          <button className="search">SEARCH</button>
         </SearchForm>
       </header>
       <main>
@@ -90,10 +88,10 @@ const Jobs: React.FC<IProps> = ({ jobs, setJobs, authenticated }) => {
         {jobs.map((job) => (
           <JobItem key={job.id}>
             <div className="text-container">
-              <h3>
+              <h3 className="title">
                 {job.title} <span>{job.type}</span>
               </h3>
-              <p>
+              <p className="company">
                 <a href={job.company_url || ""} className="companyURL">
                   {job.company}
                 </a>{" "}
@@ -106,7 +104,6 @@ const Jobs: React.FC<IProps> = ({ jobs, setJobs, authenticated }) => {
           </JobItem>
         ))}
       </main>
-      <footer></footer>
     </Container>
   );
 };
@@ -125,25 +122,23 @@ const SearchForm = styled.form`
   display: flex;
   flex-direction: column;
 
-  * {
-    margin-bottom: 1rem;
-  }
-
-  div {
+  .inputContainer {
     display: flex;
     flex-direction: column;
+    margin-bottom: 1rem;
 
     @media (min-width: 720px) {
       flex-direction: row;
     }
   }
 
-  input[type="text"] {
+  input {
     border: none;
     border-bottom: 1px solid #0b3954;
     outline: none;
     font-size: 1rem;
     padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
 
     @media (min-width: 720px) {
       flex-direction: row;
@@ -151,7 +146,7 @@ const SearchForm = styled.form`
     }
   }
 
-  .submit {
+  .search {
     border: none;
     background-color: #0b3954;
     color: #f7f9f9;
@@ -160,6 +155,7 @@ const SearchForm = styled.form`
     width: 100%;
     cursor: pointer;
     font-size: 1rem;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -172,6 +168,7 @@ const ToggleButton = styled.button<{ selected: boolean }>`
   width: 100%;
   cursor: pointer;
   font-size: 1rem;
+  margin-bottom: 1rem;
 
   background-color: ${(props) => (props.selected ? "#0b3954" : "transparent")};
   color: ${(props) => (props.selected ? "#f7f9f9" : "#0b3954")};
@@ -186,7 +183,7 @@ const JobItem = styled.div`
     align-items: center;
   }
 
-  h3 {
+  .title {
     line-height: 1.5;
     margin: 0.5rem 0;
 
@@ -201,15 +198,15 @@ const JobItem = styled.div`
     }
   }
 
-  p {
+  .company {
     margin: 1rem 0;
-  }
 
-  .companyURL {
-    text-decoration: none;
-    color: inherit;
-    padding-bottom: 0.125rem;
-    border-bottom: 1px solid black;
+    .companyURL {
+      text-decoration: none;
+      color: inherit;
+      padding-bottom: 0.125rem;
+      border-bottom: 1px solid black;
+    }
   }
 
   .detail {

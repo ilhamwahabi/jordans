@@ -43,7 +43,7 @@ const Home: React.FC<IProps> = ({ authenticated, setAuthenticated }) => {
   return (
     <Container>
       <LoginForm onSubmit={actionLogin}>
-        <h1>Login</h1>
+        <h1 className="title">Login</h1>
         <LoginInput id="username" type="text" placeholder="Username" />
         <LoginInput id="password" type="password" placeholder="Password" />
         <LoginButton>Submit</LoginButton>
@@ -60,7 +60,7 @@ const Container = styled.div`
   align-items: center;
   background-color: #f7f9f9;
 
-  h1 {
+  .title {
     margin: 0 0 2rem;
     color: #f7f9f9;
     padding-bottom: 0.5rem;
