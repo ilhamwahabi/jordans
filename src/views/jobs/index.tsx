@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -7,18 +7,30 @@ import { Job } from "../../interfaces";
 
 function Jobs() {
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [filter, setFilter] = useState({
+    description: "",
+    location: "",
+    fulltime: false,
+  });
+
+  const getAllJobs = useCallback(async (filter) => {
+    const { data } = await axios.get("https://jobbery-api.iwgx.now.sh/jobs", {
+      params: filter,
+    });
+    setJobs(data);
+  }, []);
 
   useEffect(() => {
-    const getAllJobs = async () => {
-      const { data } = await axios.get("https://jobbery-api.iwgx.now.sh/jobs");
-      setJobs(data);
-    };
-
-    getAllJobs();
-  }, []);
+    getAllJobs({
+      description: "",
+      location: "",
+      fulltime: false,
+    });
+  }, [getAllJobs]);
 
   const actionSubmitSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    getAllJobs(filter);
   };
 
   return (
@@ -26,13 +38,30 @@ function Jobs() {
       <header>
         <h1>Github Jobs</h1>
         <SearchForm onSubmit={actionSubmitSearch}>
-          <input type="text" id="description" placeholder="Description" />
-          <input type="text" id="location" placeholder="Location" />
-          <label htmlFor="isFulltime">
-            <input type="checkbox" id="isFulltime" />
-            Fulltime
-          </label>
-          <button>SEARCH</button>
+          <input
+            type="text"
+            placeholder="Description"
+            value={filter.description}
+            onChange={(event) =>
+              setFilter({ ...filter, description: event.target.value })
+            }
+          />
+          <input
+            type="text"
+            id="location"
+            placeholder="Location"
+            onChange={(event) =>
+              setFilter({ ...filter, location: event.target.value })
+            }
+          />
+          <ToggleButton
+            selected={filter.fulltime}
+            type="button"
+            onClick={() => setFilter({ ...filter, fulltime: !filter.fulltime })}
+          >
+            Full Time
+          </ToggleButton>
+          <button className="submit">SEARCH</button>
         </SearchForm>
       </header>
       <main>
@@ -83,7 +112,7 @@ const SearchForm = styled.form`
     padding-bottom: 0.5rem;
   }
 
-  button {
+  .submit {
     border: none;
     background-color: #0b3954;
     color: #f7f9f9;
@@ -92,6 +121,20 @@ const SearchForm = styled.form`
     width: 100%;
     cursor: pointer;
   }
+`;
+
+const ToggleButton = styled.button<{ selected: boolean }>`
+  border: none;
+  border: 2.5px solid #0b3954;
+  color: #0b3954;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.25rem;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1rem;
+
+  background-color: ${(props) => (props.selected ? "#0b3954" : "transparent")};
+  color: ${(props) => (props.selected ? "#f7f9f9" : "#0b3954")};
 `;
 
 const JobItem = styled.div`
