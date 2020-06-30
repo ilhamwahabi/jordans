@@ -79,15 +79,17 @@ const Jobs: React.FC<IProps> = ({ jobs, setJobs, authenticated }) => {
         <h2>All Jobs</h2>
         {jobs.map((job) => (
           <JobItem key={job.id}>
-            <h3>
-              {job.title} <span>{job.type}</span>
-            </h3>
-            <p>
-              <a href={job.company_url || ""} className="companyURL">
-                {job.company}
-              </a>{" "}
-              - {job.location}
-            </p>
+            <div className="text-container">
+              <h3>
+                {job.title} <span>{job.type}</span>
+              </h3>
+              <p>
+                <a href={job.company_url || ""} className="companyURL">
+                  {job.company}
+                </a>{" "}
+                - {job.location}
+              </p>
+            </div>
             <Link className="detail" key={job.id} to={`/jobs/${job.id}`}>
               DETAIL
             </Link>
@@ -101,6 +103,8 @@ const Jobs: React.FC<IProps> = ({ jobs, setJobs, authenticated }) => {
 
 const Container = styled.div`
   padding: 2rem;
+  max-width: 720px;
+  margin: 0 auto;
 
   h1 {
     margin-top: 0;
@@ -151,6 +155,12 @@ const ToggleButton = styled.button<{ selected: boolean }>`
 const JobItem = styled.div`
   margin-bottom: 2rem;
 
+  @media (min-width: 720px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   h3 {
     line-height: 1.5;
     margin: 0.5rem 0;
@@ -188,6 +198,17 @@ const JobItem = styled.div`
     box-sizing: border-box;
     text-decoration: none;
     text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+
+    :hover {
+      background-color: #0b3954;
+      color: #f7f9f9;
+    }
+
+    @media (min-width: 720px) {
+      width: unset;
+      height: fit-content;
+    }
   }
 `;
 
