@@ -1,18 +1,34 @@
 import React from "react";
 import styled from "styled-components";
+import { RouteProps, useHistory } from "react-router-dom";
 
-function Home() {
+const DUMMY_USERNAME = "admin";
+const DUMMY_PASSWORD = "password";
+
+const Home: React.FC<RouteProps> = (props) => {
+  const history = useHistory();
+
+  const actionLogin = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const { username, password } = event.currentTarget;
+    if (username.value !== DUMMY_USERNAME) return;
+    if (password.value !== DUMMY_PASSWORD) return;
+
+    history.push("/jobs");
+  };
+
   return (
     <Container>
-      <LoginForm>
+      <LoginForm onSubmit={actionLogin}>
         <h1>Login</h1>
-        <LoginInput type="text" placeholder="Username" />
-        <LoginInput type="password" placeholder="Password" />
+        <LoginInput id="username" type="text" placeholder="Username" />
+        <LoginInput id="password" type="password" placeholder="Password" />
         <LoginButton>Submit</LoginButton>
       </LoginForm>
     </Container>
   );
-}
+};
 
 const Container = styled.div`
   min-height: 100vh;
@@ -47,6 +63,7 @@ const LoginInput = styled.input`
   background-color: transparent;
   border: none;
   border-bottom: 1px solid #0b3954;
+  outline: none;
 `;
 
 const LoginButton = styled.button`
