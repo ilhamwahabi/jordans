@@ -53,31 +53,34 @@ const Jobs: React.FC<IProps> = ({ jobs, setJobs, authenticated }) => {
       <header>
         <h1>Github Jobs</h1>
         <SearchForm onSubmit={actionSubmitSearch}>
-          <input
-            type="text"
-            placeholder="Description"
-            value={filter.description}
-            onChange={(event) =>
-              setFilter({ ...filter, description: event.target.value })
-            }
-          />
-          <input
-            type="text"
-            id="location"
-            placeholder="Location"
-            onChange={(event) =>
-              setFilter({ ...filter, location: event.target.value })
-            }
-          />
-          <ToggleButton
-            selected={filter.full_time}
-            type="button"
-            onClick={() =>
-              setFilter({ ...filter, full_time: !filter.full_time })
-            }
-          >
-            Full Time
-          </ToggleButton>
+          <div>
+            <input
+              type="text"
+              placeholder="Description"
+              value={filter.description}
+              onChange={(event) =>
+                setFilter({ ...filter, description: event.target.value })
+              }
+            />
+            <input
+              type="text"
+              id="location"
+              placeholder="Location"
+              onChange={(event) =>
+                setFilter({ ...filter, location: event.target.value })
+              }
+            />
+            <ToggleButton
+              selected={filter.full_time}
+              type="button"
+              onClick={() =>
+                setFilter({ ...filter, full_time: !filter.full_time })
+              }
+            >
+              {filter.full_time ? "Full Time" : "Not Full Time"}
+            </ToggleButton>
+          </div>
+
           <button className="submit">SEARCH</button>
         </SearchForm>
       </header>
@@ -122,8 +125,17 @@ const SearchForm = styled.form`
   display: flex;
   flex-direction: column;
 
-  & > * {
+  * {
     margin-bottom: 1rem;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 720px) {
+      flex-direction: row;
+    }
   }
 
   input[type="text"] {
@@ -132,6 +144,11 @@ const SearchForm = styled.form`
     outline: none;
     font-size: 1rem;
     padding-bottom: 0.5rem;
+
+    @media (min-width: 720px) {
+      flex-direction: row;
+      margin-right: 2rem;
+    }
   }
 
   .submit {
@@ -142,6 +159,7 @@ const SearchForm = styled.form`
     border-radius: 0.25rem;
     width: 100%;
     cursor: pointer;
+    font-size: 1rem;
   }
 `;
 

@@ -58,7 +58,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #a5abaf;
+  background-color: #f7f9f9;
 
   h1 {
     margin: 0 0 2rem;

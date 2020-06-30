@@ -63,7 +63,7 @@ const JobsDetail: React.FC<IProps> = ({ jobs, authenticated }) => {
 };
 
 const Container = styled.div`
-  padding: 2rem;
+  padding: 2rem 2rem 5rem;
   max-width: 720px;
   margin: 0 auto;
 
