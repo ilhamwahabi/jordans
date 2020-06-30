@@ -5,13 +5,19 @@ import axios from "axios";
 
 import { Job } from "../../interfaces";
 
-function Jobs() {
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [filter, setFilter] = useState({
-    description: "",
-    location: "",
-    fulltime: false,
-  });
+interface IProps {
+  jobs: Job[];
+  setJobs: (jobs: Job[]) => void;
+}
+
+const defaultFilter = {
+  description: "",
+  location: "",
+  fulltime: false,
+};
+
+const Jobs: React.FC<IProps> = ({ jobs, setJobs }) => {
+  const [filter, setFilter] = useState(defaultFilter);
 
   const getAllJobs = useCallback(async (filter) => {
     const { data } = await axios.get("https://jobbery-api.iwgx.now.sh/jobs", {
@@ -21,11 +27,7 @@ function Jobs() {
   }, []);
 
   useEffect(() => {
-    getAllJobs({
-      description: "",
-      location: "",
-      fulltime: false,
-    });
+    getAllJobs(defaultFilter);
   }, [getAllJobs]);
 
   const actionSubmitSearch = (event: React.FormEvent<HTMLFormElement>) => {
@@ -86,7 +88,7 @@ function Jobs() {
       <footer></footer>
     </Container>
   );
-}
+};
 
 const Container = styled.div`
   padding: 2rem;

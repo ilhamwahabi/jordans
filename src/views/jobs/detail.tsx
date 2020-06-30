@@ -3,16 +3,18 @@ import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { Job } from "../../interfaces";
-import { SAMPLE_JOBS } from "../../dummy";
 
-function JobsDetail() {
+interface IProps {
+  jobs: Job[];
+}
+
+const JobsDetail: React.FC<IProps> = ({ jobs }) => {
   const { id } = useParams();
   const [job, setJob] = useState<Job>();
   const [openApply, setOpenApply] = useState(false);
 
   useEffect(() => {
-    console.log(id);
-    setJob(SAMPLE_JOBS.find((job) => job.id === id));
+    setJob(jobs.find((item) => item.id === id));
   }, [id]);
 
   if (!job) return null;
@@ -36,7 +38,7 @@ function JobsDetail() {
       )}
     </Container>
   );
-}
+};
 
 const Container = styled.div`
   padding: 2rem;
