@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import swal from "sweetalert2";
 
 const DUMMY_USERNAME = "admin";
 const DUMMY_PASSWORD = "password";
@@ -17,8 +18,21 @@ const Home: React.FC<IProps> = ({ authenticated, setAuthenticated }) => {
     event.preventDefault();
 
     const { username, password } = event.currentTarget;
-    if (username.value !== DUMMY_USERNAME) return;
-    if (password.value !== DUMMY_PASSWORD) return;
+    if (
+      username.value !== DUMMY_USERNAME ||
+      password.value !== DUMMY_PASSWORD
+    ) {
+      let errorMessage = "Username dan/atau Password Anda salah";
+      if (username.value === "" || password.value === "") {
+        errorMessage = "Kolom inputan tidak boleh kosong";
+      }
+
+      return swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: errorMessage,
+      });
+    }
 
     setAuthenticated(true);
     localStorage.setItem("gh-jobs-auth", JSON.stringify(true));
