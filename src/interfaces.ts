@@ -1,4 +1,4 @@
-export interface Job {
+export interface IJob {
   id: string;
   type: string;
   url: string;
@@ -10,4 +10,10 @@ export interface Job {
   description: string;
   how_to_apply: string;
   company_logo: string | null;
+}
+
+export interface IJobFilter {
+  description: string;
+  location: string;
+  full_time: boolean;
 }

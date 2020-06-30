@@ -1,35 +1,33 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams, Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 
-import { Job } from "../../interfaces";
+import { IJob } from "../../interfaces";
 import { ReactComponent as LeftArrow } from "../../leftArrow.svg";
+import { getJob } from "../../service";
 
 interface IProps {
-  jobs: Job[];
+  jobs: IJob[];
   authenticated: boolean;
 }
 
 const JobsDetail: React.FC<IProps> = ({ jobs, authenticated }) => {
   const { id } = useParams();
   const history = useHistory();
-  const [job, setJob] = useState<Job>();
+  const [job, setJob] = useState<IJob>();
   const [openApply, setOpenApply] = useState(false);
 
-  const getJob = useCallback(async () => {
-    const { data } = await axios.get(
-      `https://jobbery-api.iwgx.now.sh/jobs/${id}`
-    );
+  const getData = useCallback(async () => {
+    const { data } = await getJob(id);
     setJob(data);
   }, [setJob, id]);
 
   useEffect(() => {
     if (!authenticated) return;
 
-    if (jobs.length === 0) getJob();
+    if (jobs.length === 0) getData();
     else setJob(jobs.find((item) => item.id === id));
-  }, [id, jobs, authenticated, getJob]);
+  }, [id, jobs, authenticated, getData]);
 
   if (!authenticated) history.push("/");
   if (!job) return null;

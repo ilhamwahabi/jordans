@@ -5,10 +5,10 @@ import "./App.css";
 import Home from "./views";
 import Jobs from "./views/jobs";
 import JobsDetail from "./views/jobs/detail";
-import { Job } from "./interfaces";
+import { IJob } from "./interfaces";
 
 function App() {
-  const [jobs, setJobs] = useState<Job[]>([]);
+  const [jobs, setJobs] = useState<IJob[]>([]);
   const [authenticated, setAuthenticated] = useState(
     (JSON.parse(localStorage.getItem("gh-jobs-auth") as string) as boolean) ||
       false

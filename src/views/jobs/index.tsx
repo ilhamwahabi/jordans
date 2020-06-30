@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
 
-import { Job } from "../../interfaces";
+import { IJob } from "../../interfaces";
+import { getJobs } from "../../service";
 
 interface IProps {
-  jobs: Job[];
-  setJobs: (jobs: Job[]) => void;
+  jobs: IJob[];
+  setJobs: (jobs: IJob[]) => void;
   authenticated: boolean;
 }
 
@@ -23,9 +23,7 @@ const Jobs: React.FC<IProps> = ({ jobs, setJobs, authenticated }) => {
 
   const getAllJobs = useCallback(
     async (filter) => {
-      const { data } = await axios.get("https://jobbery-api.iwgx.now.sh/jobs", {
-        params: filter,
-      });
+      const { data } = await getJobs(filter);
       setJobs(data);
     },
     [setJobs]
