@@ -8,6 +8,7 @@ import { SAMPLE_JOBS } from "../../dummy";
 function JobsDetail() {
   const { id } = useParams();
   const [job, setJob] = useState<Job>();
+  const [openApply, setOpenApply] = useState(false);
 
   useEffect(() => {
     console.log(id);
@@ -29,7 +30,10 @@ function JobsDetail() {
         - {job.location}
       </p>
       <p dangerouslySetInnerHTML={{ __html: job.description }} />
-      <ApplyButton>APPLY</ApplyButton>
+      <ApplyButton onClick={() => setOpenApply(!openApply)}>APPLY</ApplyButton>
+      {openApply && (
+        <p dangerouslySetInnerHTML={{ __html: job.how_to_apply }} />
+      )}
     </Container>
   );
 }
@@ -68,7 +72,7 @@ const Container = styled.div`
   }
 `;
 
-const ApplyButton = styled.a`
+const ApplyButton = styled.button`
   display: block;
   margin-top: 1.5rem;
   border: none;
@@ -80,6 +84,7 @@ const ApplyButton = styled.a`
   box-sizing: border-box;
   text-decoration: none;
   text-align: center;
+  cursor: pointer;
 `;
 
 export default JobsDetail;

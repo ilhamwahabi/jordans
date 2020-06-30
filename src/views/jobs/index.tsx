@@ -40,14 +40,9 @@ function Jobs() {
             <p>
               {job.company}, {job.location}
             </p>
-            <div className="buttonGroup">
-              <Link className="detail" key={job.id} to={`/jobs/${job.id}`}>
-                DETAIL
-              </Link>
-              <a className="apply" href={job.how_to_apply}>
-                APPLY
-              </a>
-            </div>
+            <Link className="detail" key={job.id} to={`/jobs/${job.id}`}>
+              DETAIL
+            </Link>
           </JobItem>
         ))}
       </main>
@@ -87,12 +82,16 @@ const SearchForm = styled.form`
     padding: 0.75rem 1.25rem;
     border-radius: 0.25rem;
     width: 100%;
+    cursor: pointer;
   }
 `;
 
 const JobItem = styled.div`
+  margin-bottom: 2rem;
+
   h3 {
     line-height: 1.5;
+    margin: 0.5rem 0;
 
     span {
       margin-left: 0.125rem;
@@ -104,9 +103,8 @@ const JobItem = styled.div`
     }
   }
 
-  .buttonGroup {
-    display: flex;
-    justify-content: space-between;
+  p {
+    margin: 1rem 0;
   }
 
   .detail {
@@ -116,20 +114,7 @@ const JobItem = styled.div`
     font-weight: bolder;
     padding: 0.75rem 1.25rem;
     border-radius: 0.25rem;
-    width: 40%;
-    box-sizing: border-box;
-    text-decoration: none;
-    text-align: center;
-  }
-
-  .apply {
-    display: block;
-    border: none;
-    background-color: #0b3954;
-    color: #f7f9f9;
-    padding: 0.75rem 1.25rem;
-    border-radius: 0.25rem;
-    width: 40%;
+    width: 100%;
     box-sizing: border-box;
     text-decoration: none;
     text-align: center;
