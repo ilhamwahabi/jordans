@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
+import ContentLoader from "react-content-loader";
 
 import { IJob } from "../../interfaces";
 import { getJobs } from "../../service";
+import { AllJobSkeletonView } from "../../components/SkeletonView";
 
 interface IProps {
   jobs: IJob[];
@@ -15,6 +17,12 @@ const defaultFilter = {
   description: "",
   location: "",
   full_time: false,
+};
+
+const renderSkeleton = () => {
+  return Array.from({ length: 3 }).map((_, i) => (
+    <AllJobSkeletonView key={i} />
+  ));
 };
 
 const Jobs: React.FC<IProps> = ({ jobs, setJobs, authenticated }) => {
@@ -75,6 +83,7 @@ const Jobs: React.FC<IProps> = ({ jobs, setJobs, authenticated }) => {
       </header>
       <main>
         <h2>All Jobs</h2>
+        {jobs.length === 0 && renderSkeleton()}
         {jobs.map((job) => (
           <JobItem key={job.id}>
             <div className="text-container">

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { IJob } from "../../interfaces";
 import { ReactComponent as LeftArrow } from "../../leftArrow.svg";
 import { getJob } from "../../service";
+import { JobDetailSkeletonView } from "../../components/SkeletonView";
 
 interface IProps {
   jobs: IJob[];
@@ -30,25 +31,32 @@ const JobsDetail: React.FC<IProps> = ({ jobs, authenticated }) => {
   }, [id, jobs, authenticated, getData]);
 
   if (!authenticated) history.push("/");
-  if (!job) return null;
   return (
     <Container>
       <Link to="/jobs" className="allJobs">
         <LeftArrow className="arrow" />
         All Jobs
       </Link>
-      <h1>{job.title}</h1>
-      <span>{job.type}</span>
-      <p>
-        <a className="companyURL" href={job.company_url || ""}>
-          {job.company}
-        </a>{" "}
-        - {job.location}
-      </p>
-      <p dangerouslySetInnerHTML={{ __html: job.description }} />
-      <ApplyButton onClick={() => setOpenApply(!openApply)}>APPLY</ApplyButton>
-      {openApply && (
-        <p dangerouslySetInnerHTML={{ __html: job.how_to_apply }} />
+      {job ? (
+        <>
+          <h1>{job.title}</h1>
+          <span>{job.type}</span>
+          <p>
+            <a className="companyURL" href={job.company_url || ""}>
+              {job.company}
+            </a>{" "}
+            - {job.location}
+          </p>
+          <p dangerouslySetInnerHTML={{ __html: job.description }} />
+          <ApplyButton onClick={() => setOpenApply(!openApply)}>
+            APPLY
+          </ApplyButton>
+          {openApply && (
+            <p dangerouslySetInnerHTML={{ __html: job.how_to_apply }} />
+          )}
+        </>
+      ) : (
+        <JobDetailSkeletonView />
       )}
     </Container>
   );
