@@ -19,12 +19,15 @@ const defaultFilter = {
 const Jobs: React.FC<IProps> = ({ jobs, setJobs }) => {
   const [filter, setFilter] = useState(defaultFilter);
 
-  const getAllJobs = useCallback(async (filter) => {
-    const { data } = await axios.get("https://jobbery-api.iwgx.now.sh/jobs", {
-      params: filter,
-    });
-    setJobs(data);
-  }, []);
+  const getAllJobs = useCallback(
+    async (filter) => {
+      const { data } = await axios.get("https://jobbery-api.iwgx.now.sh/jobs", {
+        params: filter,
+      });
+      setJobs(data);
+    },
+    [setJobs]
+  );
 
   useEffect(() => {
     getAllJobs(defaultFilter);

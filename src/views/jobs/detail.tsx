@@ -16,7 +16,7 @@ const JobsDetail: React.FC<IProps> = ({ jobs }) => {
 
   useEffect(() => {
     setJob(jobs.find((item) => item.id === id));
-  }, [id]);
+  }, [id, jobs]);
 
   if (!job) return null;
   return (
