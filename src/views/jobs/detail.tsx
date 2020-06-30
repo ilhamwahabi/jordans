@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { Job } from "../../interfaces";
@@ -17,6 +17,9 @@ function JobsDetail() {
   if (!job) return null;
   return (
     <Container>
+      <Link to="/jobs" className="allJobs">
+        All Jobs
+      </Link>
       <h1>{job.title}</h1>
       <span>{job.type}</span>
       <p>
@@ -33,6 +36,17 @@ function JobsDetail() {
 
 const Container = styled.div`
   padding: 2rem;
+
+  .allJobs {
+    display: inline-block;
+    text-decoration: none;
+    border: none;
+    background: #0b3954;
+    color: #f7f9f9;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+  }
 
   h1 {
     margin-top: 0;

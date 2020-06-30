@@ -33,7 +33,7 @@ function Jobs() {
       <main>
         <h2>All Jobs</h2>
         {jobs.map((job) => (
-          <JobItem>
+          <JobItem key={job.id}>
             <h3>
               {job.title} <span>{job.type}</span>
             </h3>
