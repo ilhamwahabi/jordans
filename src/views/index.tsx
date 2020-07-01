@@ -25,10 +25,13 @@ const renderSkeleton = () => {
 
 const Jobs: React.FC<IProps> = ({ jobs, setJobs }) => {
   const [filter, setFilter] = useState(defaultFilter);
+  const [loading, setLoading] = useState(false);
 
   const getAllJobs = useCallback(
     async (filter) => {
+      setLoading(true);
       const { data } = await getJobs(filter);
+      setLoading(false);
       setJobs(data);
     },
     [setJobs]
@@ -80,7 +83,7 @@ const Jobs: React.FC<IProps> = ({ jobs, setJobs }) => {
       </header>
       <main>
         <h2>All Jobs</h2>
-        {jobs.length === 0 && renderSkeleton()}
+        {loading && renderSkeleton()}
         {jobs.map((job) => (
           <JobItem key={job.id}>
             <div className="text-container">

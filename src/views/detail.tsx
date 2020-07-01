@@ -15,9 +15,13 @@ const JobsDetail: React.FC<IProps> = ({ jobs }) => {
   const { id } = useParams();
   const [job, setJob] = useState<IJob>();
   const [openApply, setOpenApply] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const getData = useCallback(async () => {
+    setLoading(true);
     const { data } = await getJob(id);
+    setLoading(false);
+
     setJob(data);
   }, [setJob, id]);
 
@@ -32,7 +36,8 @@ const JobsDetail: React.FC<IProps> = ({ jobs }) => {
         <LeftArrow className="arrow" />
         All Jobs
       </Link>
-      {job ? (
+      {loading && <JobDetailSkeletonView />}
+      {job && (
         <>
           <h1 className="title">{job.title}</h1>
           <span className="type">{job.type}</span>
@@ -57,8 +62,6 @@ const JobsDetail: React.FC<IProps> = ({ jobs }) => {
             />
           )}
         </>
-      ) : (
-        <JobDetailSkeletonView />
       )}
     </Container>
   );
