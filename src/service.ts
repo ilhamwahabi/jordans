@@ -1,7 +1,7 @@
 import axios from "axios";
 import { IJobFilter } from "./interfaces";
 
-const BASE_URL = "https://jobbery-api.iwgx.now.sh";
+const BASE_URL = "https://github-jobs-middleman.now.sh";
 
 const JobsAPI = axios.create({
   baseURL: BASE_URL,
