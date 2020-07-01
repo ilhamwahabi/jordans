@@ -1,20 +1,18 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useParams, Link, useHistory } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { IJob } from "../../interfaces";
-import { ReactComponent as LeftArrow } from "../../assets/leftArrow.svg";
-import { getJob } from "../../service";
-import { JobDetailSkeletonView } from "../../components/SkeletonView";
+import { IJob } from "../interfaces";
+import { getJob } from "../service";
+import { ReactComponent as LeftArrow } from "../assets/leftArrow.svg";
+import { JobDetailSkeletonView } from "../components/SkeletonView";
 
 interface IProps {
   jobs: IJob[];
-  authenticated: boolean;
 }
 
-const JobsDetail: React.FC<IProps> = ({ jobs, authenticated }) => {
+const JobsDetail: React.FC<IProps> = ({ jobs }) => {
   const { id } = useParams();
-  const history = useHistory();
   const [job, setJob] = useState<IJob>();
   const [openApply, setOpenApply] = useState(false);
 
@@ -24,16 +22,13 @@ const JobsDetail: React.FC<IProps> = ({ jobs, authenticated }) => {
   }, [setJob, id]);
 
   useEffect(() => {
-    if (!authenticated) return;
-
     if (jobs.length === 0) getData();
     else setJob(jobs.find((item) => item.id === id));
-  }, [id, jobs, authenticated, getData]);
+  }, [id, jobs, getData]);
 
-  if (!authenticated) history.push("/");
   return (
     <Container>
-      <Link to="/jobs" className="allJobs">
+      <Link to="/" className="allJobs">
         <LeftArrow className="arrow" />
         All Jobs
       </Link>
