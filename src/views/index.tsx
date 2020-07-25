@@ -169,6 +169,10 @@ const JobItem = styled.div`
     align-items: center;
   }
 
+  .text-container {
+    margin-right: 2.5rem;
+  }
+
   .title {
     line-height: 1.5;
     margin: 0.5rem 0;
