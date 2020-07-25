@@ -77,8 +77,11 @@ const Jobs: React.FC = () => {
       </header>
       <main>
         <h2>All Jobs</h2>
-        {!isLoading && error && error.message}
+        {!isLoading && error && <p>{error.message}</p>}
         {(isLoading || isLoadNewFilteredData) && renderSkeleton()}
+        {!isLoadNewFilteredData && data && data.data.length === 0 && (
+          <p>No result found</p>
+        )}
         {!isLoadNewFilteredData &&
           data &&
           data.data.map((job) => (
