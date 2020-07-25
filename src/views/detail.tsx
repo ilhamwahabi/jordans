@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 import { useQuery } from "react-query";
@@ -15,13 +15,17 @@ const JobsDetail: React.FC = () => {
     refetchOnWindowFocus: false,
   });
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Container>
       <Link to="/" className="allJobs">
         <LeftArrow className="arrow" />
         All Jobs
       </Link>
-      {!isLoading && error && error.message}
+      {!isLoading && error && <p>{error.message}</p>}
       {isLoading && <JobDetailSkeletonView />}
       {data && (
         <>
