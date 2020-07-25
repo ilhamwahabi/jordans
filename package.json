@@ -1,5 +1,5 @@
 {
-  "name": "dans-github-jobs",
+  "name": "jordans",
   "version": "0.1.0",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -20,7 +20,6 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.1",
-    "sweetalert2": "^9.15.2",
     "typeface-lato": "^0.0.75",
     "typescript": "~3.7.2"
   },
