@@ -20,7 +20,7 @@ const renderSkeleton = () => {
 
 const Jobs: React.FC = () => {
   const [filter, setFilter] = useState(defaultFilter);
-  const { isLoading, data, refetch } = useQuery("allJobs", () =>
+  const { error, isLoading, data, refetch } = useQuery("allJobs", () =>
     getJobs(filter)
   );
 
@@ -66,6 +66,7 @@ const Jobs: React.FC = () => {
       </header>
       <main>
         <h2>All Jobs</h2>
+        {!isLoading && error && error.message}
         {isLoading && renderSkeleton()}
         {data &&
           data.data.map((job) => (

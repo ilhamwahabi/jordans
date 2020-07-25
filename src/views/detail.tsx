@@ -10,7 +10,10 @@ import { JobDetailSkeletonView } from "../components/SkeletonView";
 const JobsDetail: React.FC = () => {
   const { id } = useParams();
   const [openApply, setOpenApply] = useState(false);
-  const { data, isLoading } = useQuery(`job/${id}`, () => getJob(id));
+  const { error, data, isLoading } = useQuery(`job/${id}`, () => getJob(id), {
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <Container>
@@ -18,6 +21,7 @@ const JobsDetail: React.FC = () => {
         <LeftArrow className="arrow" />
         All Jobs
       </Link>
+      {!isLoading && error && error.message}
       {isLoading && <JobDetailSkeletonView />}
       {data && (
         <>
