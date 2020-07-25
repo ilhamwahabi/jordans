@@ -11,13 +11,13 @@ import JobsDetail from "./views/detail";
 import { IJob } from "./interfaces";
 
 function App() {
-  const [jobs, setJobs] = useState<IJob[]>([]);
+  const [jobs] = useState<IJob[]>([]);
 
   return (
     <Router>
       <Switch>
         <Route path="/" exact>
-          <Jobs jobs={jobs} setJobs={setJobs} />
+          <Jobs />
         </Route>
         <Route path="/:id" exact>
           <JobsDetail jobs={jobs} />

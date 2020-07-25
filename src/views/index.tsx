@@ -1,15 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useQuery } from "react-query";
 
-import { IJob } from "../interfaces";
 import { getJobs } from "../service";
 import { AllJobSkeletonView } from "../components/SkeletonView";
-
-interface IProps {
-  jobs: IJob[];
-  setJobs: (jobs: IJob[]) => void;
-}
+import { IJob } from "../interfaces";
 
 const defaultFilter = {
   description: "",
@@ -23,27 +19,15 @@ const renderSkeleton = () => {
   ));
 };
 
-const Jobs: React.FC<IProps> = ({ jobs, setJobs }) => {
+const Jobs: React.FC = () => {
   const [filter, setFilter] = useState(defaultFilter);
-  const [loading, setLoading] = useState(false);
-
-  const getAllJobs = useCallback(
-    async (filter) => {
-      setLoading(true);
-      const { data } = await getJobs(filter);
-      setLoading(false);
-      setJobs(data);
-    },
-    [setJobs]
+  const { isLoading, data, refetch } = useQuery("allJobs", () =>
+    getJobs(filter)
   );
-
-  useEffect(() => {
-    getAllJobs(defaultFilter);
-  }, [getAllJobs]);
 
   const actionSubmitSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    getAllJobs(filter);
+    refetch();
   };
 
   return (
@@ -83,25 +67,26 @@ const Jobs: React.FC<IProps> = ({ jobs, setJobs }) => {
       </header>
       <main>
         <h2>All Jobs</h2>
-        {loading && renderSkeleton()}
-        {jobs.map((job) => (
-          <JobItem key={job.id}>
-            <div className="text-container">
-              <h3 className="title">
-                {job.title} <span>{job.type}</span>
-              </h3>
-              <p className="company">
-                <a href={job.company_url || ""} className="companyURL">
-                  {job.company}
-                </a>{" "}
-                - {job.location}
-              </p>
-            </div>
-            <Link className="detail" key={job.id} to={`/${job.id}`}>
-              DETAIL
-            </Link>
-          </JobItem>
-        ))}
+        {isLoading && renderSkeleton()}
+        {data &&
+          data.data.map((job: IJob) => (
+            <JobItem key={job.id}>
+              <div className="text-container">
+                <h3 className="title">
+                  {job.title} <span>{job.type}</span>
+                </h3>
+                <p className="company">
+                  <a href={job.company_url || ""} className="companyURL">
+                    {job.company}
+                  </a>{" "}
+                  - {job.location}
+                </p>
+              </div>
+              <Link className="detail" key={job.id} to={`/${job.id}`}>
+                DETAIL
+              </Link>
+            </JobItem>
+          ))}
       </main>
     </Container>
   );
