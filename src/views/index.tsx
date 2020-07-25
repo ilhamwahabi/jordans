@@ -20,8 +20,16 @@ const renderSkeleton = () => {
 
 const Jobs: React.FC = () => {
   const [filter, setFilter] = useState(defaultFilter);
-  const { error, isLoading, data, refetch } = useQuery("allJobs", () =>
-    getJobs(filter)
+  const [isLoadNewFilteredData, setIsLoadNewFilteredData] = useState(false);
+  const { error, isLoading, data, refetch } = useQuery(
+    "allJobs",
+    () => getJobs(filter),
+    {
+      refetchOnWindowFocus: false,
+      onSettled() {
+        if (isLoadNewFilteredData) setIsLoadNewFilteredData(false);
+      },
+    }
   );
 
   const actionUpdateFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +39,7 @@ const Jobs: React.FC = () => {
   const actionSubmitSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     refetch();
+    setIsLoadNewFilteredData(true);
   };
 
   return (
@@ -69,8 +78,9 @@ const Jobs: React.FC = () => {
       <main>
         <h2>All Jobs</h2>
         {!isLoading && error && error.message}
-        {isLoading && renderSkeleton()}
-        {data &&
+        {(isLoading || isLoadNewFilteredData) && renderSkeleton()}
+        {!isLoadNewFilteredData &&
+          data &&
           data.data.map((job) => (
             <JobItem key={job.id}>
               <div className="text-container">
