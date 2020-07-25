@@ -28,7 +28,7 @@ const JobsDetail: React.FC = () => {
           <h1 className="title">{data.data.title}</h1>
           <span className="type">{data.data.type}</span>
           <p className="company">
-            <a className="companyURL" href={data.data.company_url || ""}>
+            <a className="companyURL" href={data.data.company_url || undefined}>
               {data.data.company}
             </a>
             {" - "}

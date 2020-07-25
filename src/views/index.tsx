@@ -24,6 +24,10 @@ const Jobs: React.FC = () => {
     getJobs(filter)
   );
 
+  const actionUpdateFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilter({ ...filter, [event.target.id]: event.target.value });
+  };
+
   const actionSubmitSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     refetch();
@@ -37,19 +41,17 @@ const Jobs: React.FC = () => {
           <div className="inputContainer">
             <input
               type="text"
+              id="description"
               placeholder="Description"
               value={filter.description}
-              onChange={(event) =>
-                setFilter({ ...filter, description: event.target.value })
-              }
+              onChange={actionUpdateFilter}
             />
             <input
               type="text"
               id="location"
               placeholder="Location"
-              onChange={(event) =>
-                setFilter({ ...filter, location: event.target.value })
-              }
+              value={filter.location}
+              onChange={actionUpdateFilter}
             />
             <ToggleButton
               selected={filter.full_time}
@@ -76,7 +78,7 @@ const Jobs: React.FC = () => {
                   {job.title} <span>{job.type}</span>
                 </h3>
                 <p className="company">
-                  <a href={job.company_url || ""} className="companyURL">
+                  <a href={job.company_url || undefined} className="companyURL">
                     {job.company}
                   </a>{" "}
                   - {job.location}
