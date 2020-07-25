@@ -1,34 +1,16 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
+import { useQuery } from "react-query";
 
-import { IJob } from "../interfaces";
 import { getJob } from "../service";
 import { ReactComponent as LeftArrow } from "../assets/leftArrow.svg";
 import { JobDetailSkeletonView } from "../components/SkeletonView";
 
-interface IProps {
-  jobs: IJob[];
-}
-
-const JobsDetail: React.FC<IProps> = ({ jobs }) => {
+const JobsDetail: React.FC = () => {
   const { id } = useParams();
-  const [job, setJob] = useState<IJob>();
   const [openApply, setOpenApply] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const getData = useCallback(async () => {
-    setLoading(true);
-    const { data } = await getJob(id);
-    setLoading(false);
-
-    setJob(data);
-  }, [setJob, id]);
-
-  useEffect(() => {
-    if (jobs.length === 0) getData();
-    else setJob(jobs.find((item) => item.id === id));
-  }, [id, jobs, getData]);
+  const { data, isLoading } = useQuery(`job/${id}`, () => getJob(id));
 
   return (
     <Container>
@@ -36,21 +18,21 @@ const JobsDetail: React.FC<IProps> = ({ jobs }) => {
         <LeftArrow className="arrow" />
         All Jobs
       </Link>
-      {loading && <JobDetailSkeletonView />}
-      {job && (
+      {isLoading && <JobDetailSkeletonView />}
+      {data && (
         <>
-          <h1 className="title">{job.title}</h1>
-          <span className="type">{job.type}</span>
+          <h1 className="title">{data.data.title}</h1>
+          <span className="type">{data.data.type}</span>
           <p className="company">
-            <a className="companyURL" href={job.company_url || ""}>
-              {job.company}
+            <a className="companyURL" href={data.data.company_url || ""}>
+              {data.data.company}
             </a>
             {" - "}
-            {job.location}
+            {data.data.location}
           </p>
           <p
             className="description"
-            dangerouslySetInnerHTML={{ __html: job.description }}
+            dangerouslySetInnerHTML={{ __html: data.data.description }}
           />
           <ApplyButton onClick={() => setOpenApply(!openApply)}>
             APPLY
@@ -58,7 +40,7 @@ const JobsDetail: React.FC<IProps> = ({ jobs }) => {
           {openApply && (
             <p
               className="apply"
-              dangerouslySetInnerHTML={{ __html: job.how_to_apply }}
+              dangerouslySetInnerHTML={{ __html: data.data.how_to_apply }}
             />
           )}
         </>

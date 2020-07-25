@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,11 +8,8 @@ import {
 
 import Jobs from "./views";
 import JobsDetail from "./views/detail";
-import { IJob } from "./interfaces";
 
 function App() {
-  const [jobs] = useState<IJob[]>([]);
-
   return (
     <Router>
       <Switch>
@@ -20,7 +17,7 @@ function App() {
           <Jobs />
         </Route>
         <Route path="/:id" exact>
-          <JobsDetail jobs={jobs} />
+          <JobsDetail />
         </Route>
         <Route path="*">
           <Redirect to="/" />
