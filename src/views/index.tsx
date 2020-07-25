@@ -5,7 +5,6 @@ import { useQuery } from "react-query";
 
 import { getJobs } from "../service";
 import { AllJobSkeletonView } from "../components/SkeletonView";
-import { IJob } from "../interfaces";
 
 const defaultFilter = {
   description: "",
@@ -69,7 +68,7 @@ const Jobs: React.FC = () => {
         <h2>All Jobs</h2>
         {isLoading && renderSkeleton()}
         {data &&
-          data.data.map((job: IJob) => (
+          data.data.map((job) => (
             <JobItem key={job.id}>
               <div className="text-container">
                 <h3 className="title">
