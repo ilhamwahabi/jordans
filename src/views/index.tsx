@@ -5,14 +5,20 @@ import { useQuery, queryCache } from "react-query";
 import { getJobs, getJob } from "../service";
 import { Filter } from "../state";
 
-import { AllJobSkeletonView } from "../components/SkeletonView";
+import {
+  AllJobSkeletonViewMobile,
+  AllJobSkeletonViewDesktop,
+} from "../components/SkeletonView";
 import JobItem from "../components/JobItem";
 import Footer from "../components/Footer";
 
 const renderSkeleton = () => {
-  return Array.from({ length: 3 }).map((_, i) => (
-    <AllJobSkeletonView key={i} />
-  ));
+  const Skeleton =
+    window.innerWidth < 720
+      ? AllJobSkeletonViewMobile
+      : AllJobSkeletonViewDesktop;
+
+  return Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} />);
 };
 
 const Jobs: React.FC = () => {
