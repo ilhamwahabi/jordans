@@ -63,13 +63,17 @@ const Jobs: React.FC = () => {
               value={filter.location}
               onChange={actionUpdateFilter}
             />
-            <ToggleButton
-              selected={filter.full_time}
-              type="button"
-              onClick={() => updateFilter("full_time", !filter.full_time)}
-            >
-              {filter.full_time ? "Full Time" : "Not Full Time"}
-            </ToggleButton>
+            <label>
+              <input
+                type="checkbox"
+                id="full_time"
+                checked={filter.full_time}
+                onChange={(event) =>
+                  updateFilter(event.target.id, event.target.checked)
+                }
+              />
+              Full Time
+            </label>
           </div>
           <button className="search">SEARCH</button>
         </SearchForm>
@@ -109,24 +113,39 @@ const SearchForm = styled.form`
   .inputContainer {
     display: flex;
     flex-direction: column;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 
     @media (min-width: 720px) {
       flex-direction: row;
     }
   }
 
-  input {
+  input[type="text"] {
     border: none;
     border-bottom: 1px solid #0b3954;
     outline: none;
     font-size: 1rem;
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
+    flex: 2;
 
     @media (min-width: 720px) {
       flex-direction: row;
+      margin-bottom: 0;
       margin-right: 2rem;
+    }
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    line-height: 100%;
+    flex: 1;
+
+    input[type="checkbox"] {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-right: 1rem;
     }
   }
 
@@ -142,21 +161,6 @@ const SearchForm = styled.form`
     margin-bottom: 1rem;
     letter-spacing: 0.125rem;
   }
-`;
-
-const ToggleButton = styled.button<{ selected: boolean }>`
-  border: none;
-  border: 2.5px solid #0b3954;
-  color: #0b3954;
-  padding: 0.75rem 1.25rem;
-  border-radius: 0.25rem;
-  width: 100%;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-
-  background-color: ${(props) => (props.selected ? "#0b3954" : "transparent")};
-  color: ${(props) => (props.selected ? "#f7f9f9" : "#0b3954")};
 `;
 
 export default Jobs;
