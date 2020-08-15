@@ -79,12 +79,12 @@ const Jobs: React.FC = () => {
         <h2>All Jobs</h2>
         {!isLoading && error && <p>{error.message}</p>}
         {(isLoading || isLoadNewFilteredData) && renderSkeleton()}
-        {!isLoadNewFilteredData && data && data.data.length === 0 && (
+        {!isLoadNewFilteredData && data && data.length === 0 && (
           <p>No result found</p>
         )}
         {!isLoadNewFilteredData &&
           data &&
-          data.data.map((job) => (
+          data.map((job) => (
             <JobItem key={job.id}>
               <div className="text-container">
                 <h3 className="title">

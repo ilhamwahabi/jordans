@@ -29,18 +29,18 @@ const JobsDetail: React.FC = () => {
       {isLoading && <JobDetailSkeletonView />}
       {data && (
         <>
-          <h1 className="title">{data.data.title}</h1>
-          <span className="type">{data.data.type}</span>
+          <h1 className="title">{data.title}</h1>
+          <span className="type">{data.type}</span>
           <p className="company">
-            <a className="companyURL" href={data.data.company_url || undefined}>
-              {data.data.company}
+            <a className="companyURL" href={data.company_url || undefined}>
+              {data.company}
             </a>
             {" - "}
-            {data.data.location}
+            {data.location}
           </p>
           <p
             className="description"
-            dangerouslySetInnerHTML={{ __html: data.data.description }}
+            dangerouslySetInnerHTML={{ __html: data.description }}
           />
           <ApplyButton onClick={() => setOpenApply(!openApply)}>
             APPLY
@@ -48,7 +48,7 @@ const JobsDetail: React.FC = () => {
           {openApply && (
             <p
               className="apply"
-              dangerouslySetInnerHTML={{ __html: data.data.how_to_apply }}
+              dangerouslySetInnerHTML={{ __html: data.how_to_apply }}
             />
           )}
         </>

@@ -7,10 +7,12 @@ const JobsAPI = axios.create({
   baseURL: BASE_URL,
 });
 
-export const getJobs = (filter: IJobFilter) => {
-  return JobsAPI.get<IJob[]>("/jobs", { params: filter });
+export const getJobs = async (filter: IJobFilter) => {
+  return JobsAPI.get<IJob[]>("/jobs", { params: filter }).then(
+    (res) => res.data
+  );
 };
 
 export const getJob = (id: string) => {
-  return JobsAPI.get<IJob>(`/jobs/${id}`);
+  return JobsAPI.get<IJob>(`/jobs/${id}`).then((res) => res.data);
 };
