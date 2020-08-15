@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery, queryCache } from "react-query";
 
-import { getJobs } from "../service";
+import { getJobs, getJob } from "../service";
 import { AllJobSkeletonView } from "../components/SkeletonView";
 
 const defaultFilter = {
@@ -40,6 +40,10 @@ const Jobs: React.FC = () => {
     event.preventDefault();
     refetch();
     setIsLoadNewFilteredData(true);
+  };
+
+  const actionPrefetchJob = (id: string) => {
+    queryCache.prefetchQuery(["job", id], () => getJob(id));
   };
 
   return (
@@ -97,7 +101,12 @@ const Jobs: React.FC = () => {
                   - {job.location}
                 </p>
               </div>
-              <Link className="detail" key={job.id} to={`/${job.id}`}>
+              <Link
+                className="detail"
+                key={job.id}
+                to={`/${job.id}`}
+                onMouseOver={() => actionPrefetchJob(job.id)}
+              >
                 DETAIL
               </Link>
             </JobItem>
