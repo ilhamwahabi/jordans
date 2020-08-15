@@ -84,7 +84,7 @@ const Jobs: React.FC = () => {
         {!isLoadNewFilteredData &&
           data &&
           data.map((job) => (
-            <JobItem job={job} prefetchJob={actionPrefetchJob} />
+            <JobItem key={job.id} job={job} prefetchJob={actionPrefetchJob} />
           ))}
       </main>
       <Footer />

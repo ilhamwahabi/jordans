@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
-import { useQuery } from "react-query";
+import { useQuery, queryCache } from "react-query";
 
-import { getJob } from "../service";
+import { getJob, getJobs } from "../service";
 import { ReactComponent as LeftArrow } from "../assets/leftArrow.svg";
 import { JobDetailSkeletonView } from "../components/SkeletonView";
 import Footer from "../components/Footer";
+import { Filter } from "../state";
 
 const JobsDetail: React.FC = () => {
   const { id } = useParams();
+  let { filter } = Filter.useContainer();
   const [openApply, setOpenApply] = useState(false);
   const { error, data, isLoading } = useQuery(["job", id], () => getJob(id), {
     retry: false,
@@ -20,9 +22,13 @@ const JobsDetail: React.FC = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const actionPrefetchJobs = () => {
+    queryCache.prefetchQuery("jobs", () => getJobs(filter));
+  };
+
   return (
     <Container>
-      <Link to="/" className="allJobs">
+      <Link to="/" className="allJobs" onMouseOver={() => actionPrefetchJobs()}>
         <LeftArrow className="arrow" />
         All Jobs
       </Link>

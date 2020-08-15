@@ -7,14 +7,14 @@ import { Filter } from "./state";
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Filter.Provider>
+    <Filter.Provider>
+      <Router>
+        <Switch>
           <Route path="/" exact component={Jobs} />
           <Route path="/:id" exact component={JobsDetail} />
-        </Filter.Provider>
-      </Switch>
-    </Router>
+        </Switch>
+      </Router>
+    </Filter.Provider>
   );
 }
 
