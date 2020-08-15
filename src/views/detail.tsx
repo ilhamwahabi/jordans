@@ -16,6 +16,7 @@ const JobsDetail: React.FC = () => {
   const { error, data, isLoading } = useQuery(["job", id], () => getJob(id), {
     retry: false,
     refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 5,
   });
 
   useEffect(() => {
@@ -23,7 +24,9 @@ const JobsDetail: React.FC = () => {
   }, []);
 
   const actionPrefetchJobs = () => {
-    queryCache.prefetchQuery("jobs", () => getJobs(filter));
+    queryCache.prefetchQuery("jobs", () => getJobs(filter), {
+      staleTime: 1000 * 60 * 5,
+    });
   };
 
   return (

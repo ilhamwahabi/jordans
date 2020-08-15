@@ -28,6 +28,7 @@ const Jobs: React.FC = () => {
     "jobs",
     () => getJobs(filter),
     {
+      staleTime: 1000 * 60 * 5,
       refetchOnWindowFocus: false,
       onSettled() {
         if (isLoadNewFilteredData) setIsLoadNewFilteredData(false);
@@ -46,7 +47,9 @@ const Jobs: React.FC = () => {
   };
 
   const actionPrefetchJob = (id: string) => {
-    queryCache.prefetchQuery(["job", id], () => getJob(id));
+    queryCache.prefetchQuery(["job", id], () => getJob(id), {
+      staleTime: 1000 * 60 * 5,
+    });
   };
 
   return (
