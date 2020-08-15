@@ -22,7 +22,7 @@ const Jobs: React.FC = () => {
   const [filter, setFilter] = useState(defaultFilter);
   const [isLoadNewFilteredData, setIsLoadNewFilteredData] = useState(false);
   const { error, isLoading, data, refetch } = useQuery(
-    "allJobs",
+    "jobs",
     () => getJobs(filter),
     {
       refetchOnWindowFocus: false,
