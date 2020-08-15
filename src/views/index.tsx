@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { useQuery, queryCache } from "react-query";
 
 import { getJobs, getJob } from "../service";
 import { AllJobSkeletonView } from "../components/SkeletonView";
+import JobItem from "../components/JobItem";
 
 const defaultFilter = {
   description: "",
@@ -89,27 +89,7 @@ const Jobs: React.FC = () => {
         {!isLoadNewFilteredData &&
           data &&
           data.map((job) => (
-            <JobItem key={job.id}>
-              <div className="text-container">
-                <h3 className="title">
-                  {job.title} <span>{job.type}</span>
-                </h3>
-                <p className="company">
-                  <a href={job.company_url || undefined} className="companyURL">
-                    {job.company}
-                  </a>{" "}
-                  - {job.location}
-                </p>
-              </div>
-              <Link
-                className="detail"
-                key={job.id}
-                to={`/${job.id}`}
-                onMouseOver={() => actionPrefetchJob(job.id)}
-              >
-                DETAIL
-              </Link>
-            </JobItem>
+            <JobItem job={job} prefetchJob={actionPrefetchJob} />
           ))}
       </main>
     </Container>
@@ -180,70 +160,6 @@ const ToggleButton = styled.button<{ selected: boolean }>`
 
   background-color: ${(props) => (props.selected ? "#0b3954" : "transparent")};
   color: ${(props) => (props.selected ? "#f7f9f9" : "#0b3954")};
-`;
-
-const JobItem = styled.div`
-  margin-bottom: 2rem;
-
-  @media (min-width: 720px) {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .text-container {
-    margin-right: 2.5rem;
-  }
-
-  .title {
-    line-height: 1.5;
-    margin: 0.5rem 0;
-
-    span {
-      margin-left: 0.125rem;
-      font-size: 0.875rem;
-      color: #f7f9f9;
-      padding: 0.25rem 0.375rem;
-      border-radius: 0.25rem;
-      background-color: #129490;
-      white-space: nowrap;
-    }
-  }
-
-  .company {
-    margin: 1rem 0;
-
-    .companyURL {
-      text-decoration: none;
-      color: inherit;
-      padding-bottom: 0.125rem;
-      border-bottom: 1px solid black;
-    }
-  }
-
-  .detail {
-    display: block;
-    border: 2.5px solid #0b3954;
-    color: #0b3954;
-    font-weight: bolder;
-    padding: 0.75rem 1.25rem;
-    border-radius: 0.25rem;
-    width: 100%;
-    box-sizing: border-box;
-    text-decoration: none;
-    text-align: center;
-    transition: background-color 0.3s, color 0.3s;
-
-    :hover {
-      background-color: #0b3954;
-      color: #f7f9f9;
-    }
-
-    @media (min-width: 720px) {
-      width: unset;
-      height: fit-content;
-    }
-  }
 `;
 
 export default Jobs;
