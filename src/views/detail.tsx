@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import { getJob } from "../service";
 import { ReactComponent as LeftArrow } from "../assets/leftArrow.svg";
 import { JobDetailSkeletonView } from "../components/SkeletonView";
+import Footer from "../components/Footer";
 
 const JobsDetail: React.FC = () => {
   const { id } = useParams();
@@ -45,20 +46,20 @@ const JobsDetail: React.FC = () => {
           <ApplyButton onClick={() => setOpenApply(!openApply)}>
             APPLY
           </ApplyButton>
-          {openApply && (
-            <p
-              className="apply"
-              dangerouslySetInnerHTML={{ __html: data.how_to_apply }}
-            />
-          )}
+          <div className="apply">
+            {openApply && (
+              <p dangerouslySetInnerHTML={{ __html: data.how_to_apply }} />
+            )}
+          </div>
         </>
       )}
+      <Footer />
     </Container>
   );
 };
 
 const Container = styled.div`
-  padding: 2rem 2rem 5rem;
+  padding: 2rem;
   max-width: 720px;
   margin: 0 auto;
 
@@ -98,6 +99,10 @@ const Container = styled.div`
     color: inherit;
     padding-bottom: 0.125rem;
     border-bottom: 1px solid black;
+  }
+
+  .apply {
+    padding-bottom: 5rem;
   }
 `;
 

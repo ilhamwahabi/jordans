@@ -5,6 +5,7 @@ import { useQuery, queryCache } from "react-query";
 import { getJobs, getJob } from "../service";
 import { AllJobSkeletonView } from "../components/SkeletonView";
 import JobItem from "../components/JobItem";
+import Footer from "../components/Footer";
 
 const defaultFilter = {
   description: "",
@@ -92,6 +93,7 @@ const Jobs: React.FC = () => {
             <JobItem job={job} prefetchJob={actionPrefetchJob} />
           ))}
       </main>
+      <Footer />
     </Container>
   );
 };
