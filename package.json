@@ -21,7 +21,8 @@
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.1",
     "typeface-lato": "^0.0.75",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "unstated-next": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

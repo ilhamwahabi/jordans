@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { useQuery, queryCache } from "react-query";
 
 import { getJobs, getJob } from "../service";
+import { Filter } from "../state";
+
 import { AllJobSkeletonView } from "../components/SkeletonView";
 import JobItem from "../components/JobItem";
 import Footer from "../components/Footer";
-import { defaultFilter } from "../data";
 
 const renderSkeleton = () => {
   return Array.from({ length: 3 }).map((_, i) => (
@@ -15,7 +16,7 @@ const renderSkeleton = () => {
 };
 
 const Jobs: React.FC = () => {
-  const [filter, setFilter] = useState(defaultFilter);
+  let { filter, updateFilter } = Filter.useContainer();
   const [isLoadNewFilteredData, setIsLoadNewFilteredData] = useState(false);
   const { error, isLoading, data, refetch } = useQuery(
     "jobs",
@@ -29,7 +30,7 @@ const Jobs: React.FC = () => {
   );
 
   const actionUpdateFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilter({ ...filter, [event.target.id]: event.target.value });
+    updateFilter(event.target.id, event.target.value);
   };
 
   const actionSubmitSearch = (event: React.FormEvent<HTMLFormElement>) => {
@@ -65,9 +66,7 @@ const Jobs: React.FC = () => {
             <ToggleButton
               selected={filter.full_time}
               type="button"
-              onClick={() =>
-                setFilter({ ...filter, full_time: !filter.full_time })
-              }
+              onClick={() => updateFilter("full_time", !filter.full_time)}
             >
               {filter.full_time ? "Full Time" : "Not Full Time"}
             </ToggleButton>
