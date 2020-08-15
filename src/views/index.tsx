@@ -104,6 +104,12 @@ const Container = styled.div`
   h1 {
     margin-top: 0;
   }
+
+  h2 {
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid black;
+    display: inline-block;
+  }
 `;
 
 const SearchForm = styled.form`
