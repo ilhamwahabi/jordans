@@ -115,6 +115,9 @@ const ApplyButton = styled.button`
   padding: 0.75rem 1.25rem;
   border-radius: 0.25rem;
   width: 100%;
+  letter-spacing: 0.125rem;
+  font-size: 1rem;
+
   box-sizing: border-box;
   text-decoration: none;
   text-align: center;

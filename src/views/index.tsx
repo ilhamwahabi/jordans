@@ -6,12 +6,7 @@ import { getJobs, getJob } from "../service";
 import { AllJobSkeletonView } from "../components/SkeletonView";
 import JobItem from "../components/JobItem";
 import Footer from "../components/Footer";
-
-const defaultFilter = {
-  description: "",
-  location: "",
-  full_time: false,
-};
+import { defaultFilter } from "../data";
 
 const renderSkeleton = () => {
   return Array.from({ length: 3 }).map((_, i) => (
@@ -146,6 +141,7 @@ const SearchForm = styled.form`
     cursor: pointer;
     font-size: 1rem;
     margin-bottom: 1rem;
+    letter-spacing: 0.125rem;
   }
 `;
 
