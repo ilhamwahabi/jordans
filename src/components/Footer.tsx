@@ -2,10 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <Container>
-      Copyright 2020{" "}
-      <a href="https://twitter.com/ilhamwahabigx">Ilham Wahabi.</a>
+      Copyright {currentYear}
+      <a href="https://twitter.com/ilhamwahabigx"> Ilham Wahabi.</a>
     </Container>
   );
 };
