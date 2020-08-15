@@ -2,7 +2,7 @@
 
 ## Description
 
-Technical test for PT. Dans Multi Pro. (now you know why I gave the name `Jordans`)
+Modified version from app that being used as technical test for PT. Dans Multi Pro. (now you know why I gave the name `jordans`)
 
 This app display available jobs from [Github Jobs API](https://jobs.github.com/api) but it proxied through [my own proxy](https://github.com/iwgx/github-jobs-middleman) to bypass CORS. We can filter based on description, location, and is it full time or not. This app also can show detail of the job that we select.
 
