@@ -16,7 +16,7 @@ const JobItem: React.FC<IProps> = ({ job, prefetchJob }) => {
     <Container>
       <div className="text-container">
         <Title>
-          {title} <span>{type}</span>
+          <span>{title}</span> <span>{type}</span>
         </Title>
         <CompanyInfo>
           <a href={company_url || undefined} className="companyURL">
@@ -56,8 +56,11 @@ const Title = styled.h3`
   line-height: 1.5;
   margin: 0.5rem 0;
 
-  span {
-    margin-left: 0.125rem;
+  span:first-of-type {
+    margin-right: 0.125rem;
+  }
+
+  span:last-of-type {
     font-size: 0.875rem;
     color: #f7f9f9;
     padding: 0.25rem 0.375rem;
@@ -68,7 +71,7 @@ const Title = styled.h3`
 `;
 
 const CompanyInfo = styled.p`
-  margin: 1rem 0;
+  margin: 0.5rem 0 1rem;
   line-height: 1.75;
 
   .companyURL {
@@ -76,6 +79,10 @@ const CompanyInfo = styled.p`
     color: inherit;
     padding-bottom: 0.125rem;
     border-bottom: 1px solid black;
+  }
+
+  @media (min-width: 720px) {
+    margin: 0.5rem 0;
   }
 `;
 

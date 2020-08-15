@@ -151,6 +151,7 @@ const SearchForm = styled.form`
     input[type="checkbox"] {
       width: 1.25rem;
       height: 1.25rem;
+      margin-left: 0;
       margin-right: 1rem;
     }
   }
