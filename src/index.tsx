@@ -7,7 +7,10 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
 
-splitbee.init()
+splitbee.init({
+  scriptUrl: "/bee.js",
+  apiUrl: "/_hive",
+})
 
 ReactDOM.render(
   <React.StrictMode>
