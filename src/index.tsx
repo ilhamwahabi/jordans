@@ -1,9 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import "typeface-lato";
+import splitbee from '@splitbee/web';
+
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import "typeface-lato";
+import "./index.css";
+
+splitbee.init()
 
 ReactDOM.render(
   <React.StrictMode>
