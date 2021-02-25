@@ -8,13 +8,13 @@ This app display available jobs from [Github Jobs API](https://jobs.github.com/a
 
 Build with React (with Typescript), styled-components, react-query (with axios), unstated-next, and other great library.
 
-Deployed to Netlify.
+Deployed to Netlify. Analytics by Splitbee.
 
 ## Usage
 
 1. Clone this repo
 2. Install dependencies `yarn`
-3. Run app http://localhost:3000/jobs `yarn start`
+3. Run app http://localhost:3000 `yarn start`
 4. Build app for production `yarn build`
 
-Try here https://jordans.netlify.app/
+Try here https://jordans.iwgx.io
