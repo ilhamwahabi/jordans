@@ -1,5 +1,11 @@
 # jordans
 
+---
+
+**[DEPRECATED] Github announce that they already [shut down the Github Jobs](https://github.blog/changelog/2021-04-19-deprecation-notice-github-jobs-site/) so that mean this website also doesn't work anymore. Thanks for your interest!**
+
+---
+
 ## Description
 
 Modified version from app that being used as technical test for PT. Dans Multi Pro. (now you know why I gave the name `jordans`)
